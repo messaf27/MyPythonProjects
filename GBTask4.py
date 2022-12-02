@@ -1,21 +1,16 @@
-# Напишите программу, которая принимает на вход координаты двух точек и находит расстояние между ними в 2D пространстве.
-
-# Пример:
-
-# - A (3,6); B (2,1) -> 5,09
-# - A (7,-5); B (1,-1) -> 7,21
-
-# Формула: d = √((хА –  хВ)^2 + (уА – уВ)^2)
 import math 
 
-print('Введите координаты точки A')
-xA = int(input('X: '))
-yA = int(input('Y: '))
+print('Введите номер четверти (1-4)')
+numQuart = int(input('X: '))
 
-print('Введите координаты точки B')
-xB = int(input('X: '))
-yB = int(input('Y: '))
-
-segLenght = math.sqrt((pow(xA - xB, 2) + pow(yA - yB, 2)))
-
-print(f'Расстояние между точками: {round(segLenght, 2)}')
+if numQuart > 4 or numQuart <=0:
+    print('Введен не допустимый номер четверти!!!')
+else:
+    if numQuart == 1:
+        print('X = 1 : +∞; Y = 1 :+ ∞')
+    elif numQuart == 2:
+        print('X = 1 : +∞; Y = -1 : -∞')
+    elif numQuart == 3:
+        print('X = -1 : -∞; Y = -1 : -∞')
+    elif numQuart == 4:
+        print('X = -1 : -∞; Y = 1 : +∞')
