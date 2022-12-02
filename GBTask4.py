@@ -6,9 +6,7 @@
 # - A (7,-5); B (1,-1) -> 7,21
 
 # Формула: d = √((хА –  хВ)^2 + (уА – уВ)^2)
-import math
-
-segLenght = 0
+import math 
 
 print('Введите координаты точки A')
 xA = int(input('X: '))
