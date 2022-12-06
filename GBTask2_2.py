@@ -13,12 +13,19 @@ number = int(input('Введите число: '))
 mResults = []
 mActions = []
 
-
 res = 1
+rString = ''
 for i in range(number):
     res *= i + 1
+    
+    if i == 1:
+        rString += str(i)
+    else:
+       rString += '*'+str(i)
+       
+    mActions.append(rString)
     mResults.append(res)
-    mActions.append(str(i) + '*' + str(res))
+
 print(f'N = {number} тогда {mResults} {mActions}')
 
 
