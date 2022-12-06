@@ -2,11 +2,9 @@
 # Пример:
 # пусть N = 4, тогда [ 1, 2, 6, 24 ] (1, 1*2, 1*2*3, 1*2*3*4)
 
-def fact(n):
-    f = 1
-    for i in range(n):
-        f *= i+1
-    return f
+import os
+clear = lambda: os.system('cls')
+clear()
 
 number = int(input('Введите число: '))
 
@@ -15,18 +13,18 @@ mActions = []
 
 res = 1
 rString = ''
-for i in range(number):
+for i in range(1, number):
     res *= i + 1
     
-    if i == 1:
-        rString += str(i)
+    if i > 1 :
+        rString += '*' + str(i)
     else:
-       rString += '*'+str(i)
+        rString += str(i)
        
     mActions.append(rString)
     mResults.append(res)
 
-print(f'N = {number} тогда {mResults} {mActions}')
+print(f'N = {number}, тогда: {mResults} -> {mActions}')
 
 
     
