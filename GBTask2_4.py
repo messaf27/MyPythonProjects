@@ -21,15 +21,17 @@ for i in range(nNeg, n + 1):
 print(numList)
 
 indexList = list(map(int, input('Введите индексы через пробел: ').split()))
-rMult = 0
+rMult = 1
 rMultStr = ''
+cnt = 0
 for i in indexList:
     rMult *= numList[i]
-    print(rMult)
-    if i > 1:
+    
+    if cnt > 0:
         rMultStr += ' * '
+        
     rMultStr += str(numList[i])
+    cnt += 1
 
-# print(indexList)
 print(rMultStr + ' = ' + str(rMult))
-print(f'вывод: {rMult}')
+print(f'Вывод: {rMult}')
