@@ -4,9 +4,12 @@ from queue import Queue
 from time import sleep          # this lets us have a time delay
 import paho.mqtt.client as mqtt
 import json 
+import re
 
 class MqttClient():
 
+    devName = ""
+    
     def __init__(self, name, server, port, login, passw):
         self.name = name
         self.server = server
@@ -20,6 +23,12 @@ class MqttClient():
         self.client.on_disconnect = self.onDisconnect
         self.client.on_subscribe = self.onSubscribe
         self.client.on_message = self.onMessage
+        
+        self.devCounter:int = 0
+        self.foundDevises = []
+        self.devSubStatus = ""
+        self.devSubName = ""
+        self.devSubData = ""
         
         print(f'Init client param:'
             f'\nName: \t {self.name}'
@@ -43,23 +52,37 @@ class MqttClient():
         
     def onSubscribe(self, client, userdata, mid, granted_qos):
         print(  f'Subscribe: \nmid: {str(mid)}'
-                f'\ngranted_qos: {str(granted_qos)}')    
+                f'\ngranted_qos: {str(granted_qos)}') 
+        self.devCounter += 1 
         
     def subscribe(self):
-         self.client.subscribe(f'Alarm-GSM/+/system')
-         self.client.subscribe(f'Alarm-GSM/+/jsonData')
+         rc1 = self.client.subscribe(f'{self.devSubName}/+/{self.devSubStatus}')
+         print(f'sub1: {self.devSubName}/+/{self.devSubStatus} ({rc1})')
+        #  rc2 = self.client.subscribe(f'{self.devSubName}/+/{self.devSubData}')
+        #  print(f'sub2: {self.devSubName}/+/{self.devSubData} ({rc2})')
+     
+    def setManDevice(self, subname, substatus, subdata):
+        self.devSubName = subname
+        self.devSubStatus = substatus
+        self.devSubData = subdata
+        
+    def getFoundDevices(self):
+        return int(self.devCounter)
         
     def process(self):    
         couter = 0
-
+        
         result = self.client.connect(self.server, self.port, 15)
         print(f'Connect in process result = {result}')
         self.client.loop_start()
         try:        
             while(True):
                 sleep(5)
-                print(f'Counter loop {couter}')
-                couter += 1
+                # print(f'Counter loop {couter}')
+                # couter += 1
+                
+                print(f'Found dev: {self.getFoundDevices()}')
+                
                 
         except KeyboardInterrupt:
                 print ("exiting")
@@ -70,5 +93,6 @@ class MqttClient():
         # ThrClient = Thread(target=self.process, args=(client,))
         Thread(target=self.process).start()
         
-alrmGsmMan = MqttClient("AlarmGsmMenager", "194.87.82.22", 1883, "vdsuser", "11101987")       
+alrmGsmMan = MqttClient("AlarmGsmMenager", "194.87.82.22", 1883, "vdsuser", "11101987")     
+alrmGsmMan.setManDevice('Alarm-GSM', 'status', 'jsonData')  
 alrmGsmMan.startProcess()
