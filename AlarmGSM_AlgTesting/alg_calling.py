@@ -132,9 +132,12 @@ def AlarmCalling(contact:list, mode:callMode, di:InputAlarm):
         
 # print(f'Contact list nums: {len(contactList)}')                   
 DevInput = InputAlarm()
+
+print(f'DevInput:   \n {DevInput.alrmCkeck}\
+                       {DevInput.curState}')
         
-AlarmCalling(contactList, callMode.GENERAL, DevInput.curState)       
+# AlarmCalling(contactList, callMode.GENERAL, DevInput.curState)       
 # AlarmCalling(contactList, callMode.EXLUSIVE, diSate) 
 
-print('Real alarm state:')
-print(GetAlarmDi(DevInput.curState)) 
+# print('Real alarm state:')
+# print(GetAlarmDi(DevInput.curState)) 
