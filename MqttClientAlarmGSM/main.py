@@ -8,8 +8,6 @@ import re
 
 class MqttClient():
 
-    devName = ""
-    
     def __init__(self, name, server, port, login, passw):
         self.name = name
         self.server = server
@@ -82,7 +80,6 @@ class MqttClient():
                 # couter += 1
                 
                 print(f'Found dev: {self.getFoundDevices()}')
-                
                 
         except KeyboardInterrupt:
                 print ("exiting")
